@@ -54,42 +54,70 @@
         </div>
       </nav>
     </header>
+<main class="py-5">
+  <section class="container my-4">
 
-    <main class="py-5">
-      <section class="container my-4">
-        <!-- TÍTULO PRINCIPAL DINÁMICO -->
-        <h2 id="titulo-principal" class="seccion-titulo text-center mb-4"></h2>
+    <!-- TÍTULO PRINCIPAL -->
+    
 
-        <!-- BOTONES DINÁMICOS -->
-        <div id="botones-contenedor" class="text-center mb-4"></div>
+    <!-- BOTONES -->
+    
 
-        <!-- CARD PRINCIPAL (HERO DINÁMICO) -->
-        <article class="solar-card p-4">
-          <!-- 🔥 Encabezado con flex -->
-          <div class="hero-header d-flex align-items-center gap-4">
-            <!-- Imagen -->
-            <div class="hero-img">
-              <img
-                id="energia-icono"
-                src=""
-                alt="Energía"
-                class="img-fluid solar-img"
-              />
-            </div>
+    <!-- CARD HERO -->
+    <article class="solar-card p-4 shadow-lg border-0 rounded-4">
+      <h2 id="titulo-principal" class="titulo-principal text-center mb-4">
+      Fuentes de Energía Renovable
+    </h2>
+<div id="botones-contenedor" class="text-center mb-4"></div>
+      <div class="row align-items-center">
 
-            <!-- Títulos -->
-            <div class="hero-info">
-              <h2 class="card-title"></h2>
-              <div id="estrellas" class="estrellas mb-2"></div>
-              <h5 class="card-subtitle"></h5>
-            </div>
-          </div>
+        <!-- ÍCONO -->
+        <div class="col-md-4 text-center">
+          <img id="energia-icono" src="" alt="Energía" class="img-fluid hero-icon">
+        </div>
 
-          <!-- 🔽 Descripción full-width debajo -->
-          <p class="card-text mt-3"></p>
-        </article>
-      </section>
-    </main>
+        <!-- TÍTULOS -->
+        <div class="col-md-8">
+          <h2 class="card-title mb-1"></h2>
+          <div id="estrellas" class="estrellas mb-2"></div>
+          <h5 class="card-subtitle mb-3"></h5>
+          <p class="card-text"></p>
+        </div>
+
+      </div>
+
+      <!-- ⚡️⚡️ AQUÍ VAN LAS TARJETAS DINÁMICAS ⚡️⚡️ -->
+    <div class="row gy-4 mt-4" id="info-cards">
+      
+      <div class="col-md-4">
+        <div class="info-card p-3 rounded-4 h-100">
+          <h5 class="info-title mb-2">Beneficios Ambientales</h5>
+          <ul id="beneficios-list" class="info-list"></ul>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="info-card p-3 rounded-4 h-100">
+          <h5 class="info-title mb-2">Datos Clave</h5>
+          <ul id="datos-list" class="info-list"></ul>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="info-card p-3 rounded-4 h-100">
+          <h5 class="info-title mb-2">Potencial en Colombia</h5>
+          <ul id="colombia-list" class="info-list"></ul>
+        </div>
+      </div>
+
+    </div>
+
+    </article>
+
+  </section>
+</main>
+
+
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
