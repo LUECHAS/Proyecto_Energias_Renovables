@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Energías Renovables</title>
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/icons/favicon-32x32.png"
-    />
     <link rel="stylesheet" href="assets/css/normalize.css" />
     <link
       rel="stylesheet"
@@ -19,29 +13,21 @@
   </head>
 
   <body>
+    <!-- ================================
+     HEADER + NAVBAR
+     Contiene la barra de navegación superior,
+     construida con Bootstrap y estilos personalizados.
+================================ -->
     <header>
       <nav class="navbar navbar-expand-lg mi-navbar">
         <div class="container">
+          <!-- Logo + Nombre del sitio -->
           <a class="navbar-brand d-flex align-items-center" href="index.html">
-            <!-- inline SVG logo (allows control with CSS: fill/currentColor) -->
-            <svg
-              class="nav-logo me-2"
-              width="28"
-              height="28"
-              viewBox="0 0 48 48"
-              role="img"
-              aria-label="Logo Energía Renovable Global"
-            >
-              <title>Logo - Energía Renovable Global</title>
-              <path
-                fill="currentColor"
-                fill-rule="evenodd"
-                d="M31.197 33.609c-3.86 3.313-10.505 4.373-16.005.214 1.282-2.014 6.075-8.804 14.26-12.078l-.556-1.393c-7.977 3.191-12.782 9.372-14.573 12.047-1.513-3.531-1.792-6.971-.775-10.021.947-2.846 2.998-5.146 5.774-6.477 3.986-1.91 6.896-2.212 9.977-2.531 2.933-.304 5.949-.616 9.79-2.346-.387 6.263-2.22 17.714-7.892 22.585zm8.749-26.372c-4.455 2.475-7.613 2.803-10.957 3.149-3.199.331-6.508.675-10.963 2.81-3.516 1.684-6.118 4.609-7.325 8.234-1.316 3.954-.899 8.355 1.16 12.788-2.209 2.801-4.268 6.68-4.861 7.83h3.402c.816-1.487 2.102-3.694 3.441-5.486 2.951 2.087 6.151 2.986 9.209 2.986 3.858 0 7.489-1.421 10.099-3.664 7.137-6.128 9.023-20.56 9.023-27.336V6l-2.228 1.237z"
-              />
-            </svg>
+            <img src="assets/icons/leaf_header.png" width="28" class="me-2" />
             Energía Renovable Global
           </a>
 
+          <!-- Botón hamburguesa para móvil -->
           <button
             class="navbar-toggler"
             data-bs-toggle="collapse"
@@ -50,6 +36,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
+          <!-- Menú de navegación -->
           <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
@@ -69,16 +56,32 @@
         </div>
       </nav>
     </header>
-    <main class="py-5">
-      <section class="container my-4">
-        <!-- CARD HERO -->
-        <article class="solar-card p-4 shadow-lg border-0 rounded-4">
-          <h2 id="titulo-principal" class="titulo-principal text-center mb-4">
-            Fuentes de Energía Renovable
-          </h2>
-          <div id="botones-contenedor" class="text-center mb-4"></div>
+
+    <!-- ================================
+     CONTENIDO PRINCIPAL
+================================ -->
+    <main class="py-3">
+      <section class="container my-3">
+        <!-- ================================
+         CARD HERO PRINCIPAL
+         Contiene el título, botones dinámicos e información
+    ================================= -->
+        <article class="solar-card p-2 shadow-lg border-0 rounded-4">
+          <!-- Título principal dinámico -->
+          <h2
+            id="titulo-principal"
+            class="titulo-principal text-center mb-4"
+          ></h2>
+
+          <!-- Contenedor donde el JS insertará los botones -->
+          <div id="botones-contenedor" class="text-center mb-2"></div>
+
+          <!-- ================================
+           SECCIÓN SUPERIOR DEL HERO
+           Ícono + títulos + descripción
+      ================================= -->
           <div class="row align-items-center">
-            <!-- ÍCONO -->
+            <!-- Ícono que cambia según la energía seleccionada -->
             <div class="col-md-2 text-center">
               <img
                 id="energia-icono"
@@ -88,8 +91,8 @@
               />
             </div>
 
-            <!-- TÍTULOS -->
-            <div class="col-md-8">
+            <!-- Títulos y textos dinámicos -->
+            <div class="col-md-10">
               <h2 class="card-title mb-1"></h2>
               <div id="estrellas" class="estrellas mb-2"></div>
               <h5 class="card-subtitle mb-3"></h5>
@@ -97,54 +100,145 @@
             </div>
           </div>
 
-          <!-- ⚡️⚡️ AQUÍ VAN LAS TARJETAS DINÁMICAS ⚡️⚡️ -->
-          <div class="row gy-4 mt-4" id="info-cards">
+          <!-- ================================
+           TARJETAS INFERIORES DINÁMICAS
+           Se llenan desde data.js
+      ================================= -->
+          <div class="row gy-3 mt-3" id="info-cards">
+            <!-- Beneficios -->
             <div class="col-md-4">
-              <div class="info-card p-3 rounded-4 h-100">
+              <div class="info-card p-2 rounded-4 h-100">
                 <h5 class="info-title mb-2">Beneficios Ambientales</h5>
                 <ul id="beneficios-list" class="info-list"></ul>
               </div>
             </div>
 
+            <!-- (moved) -->
+
+            <!-- Datos Clave -->
             <div class="col-md-4">
-              <div class="info-card p-3 rounded-4 h-100">
+              <div class="info-card p-2 rounded-4 h-100">
                 <h5 class="info-title mb-2">Datos Clave</h5>
                 <ul id="datos-list" class="info-list"></ul>
               </div>
             </div>
 
+            <!-- Potencial en Colombia -->
             <div class="col-md-4">
-              <div class="info-card p-3 rounded-4 h-100">
+              <div class="info-card p-2 rounded-4 h-100">
                 <h5 class="info-title mb-2">Potencial en Colombia</h5>
                 <ul id="colombia-list" class="info-list"></ul>
               </div>
             </div>
 
-            <!-- TARJETA ANCHA FINAL -->
-            <div
-              class="wide-card p-4 mt-4 d-flex align-items-center gap-4 rounded-4 border"
-            >
-              <!-- Ícono -->
-              <div class="wide-icon text-center">
-                <img
-                  id="wide-icon"
-                  src="assets/icons/info_circle.svg"
-                  alt="Ícono"
-                  class="img-fluid"
-                  style="max-width: 80px"
-                />
-              </div>
+            <!-- ================================
+             TARJETA ANCHA FINAL (WIDE CARD)
+             Información extendida del tema
+             Cambia dinámicamente con cada energía
+        ================================= -->
+            <!-- wide-card envuelta en una columna para respetar correctamente el grid -->
+            <div class="col-12">
+              <div
+                class="wide-card p-1 mt-2 d-flex align-items-center gap-2 rounded-4 border"
+              >
+                <!-- Ícono dinámico -->
+                <div class="wide-icon text-center">
+                  <img
+                    id="wide-icon"
+                    src="assets/icons/info_circle.svg"
+                    alt="Ícono"
+                    class="img-fluid"
+                    style="max-width: 56px"
+                  />
+                </div>
 
-              <!-- Texto -->
-              <div class="wide-info">
-                <h4 id="wide-title" class="mb-2"></h4>
-                <p id="wide-text" class="mb-0"></p>
+                <!-- Textos dinámicos -->
+                <div class="wide-info">
+                  <h4 id="wide-title" class="mb-2"></h4>
+                  <p id="wide-text" class="mb-0"></p>
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- Fade / micro-indicator element (moved here so it's positioned inside the main hero card) -->
+          <div class="fade-bottom" aria-hidden="true"></div>
         </article>
       </section>
     </main>
+
+    <footer class="footer-section mt-2">
+      <div class="container py-2">
+        <div class="row">
+          <!-- Columna 1 -->
+          <div class="col-md-4 mb-2">
+            <h4 class="footer-brand d-flex align-items-center">
+              <img src="assets/icons/leaf_header.png" width="26" class="me-2" />
+              Energía Renovable Global
+            </h4>
+            <p class="footer-text">
+              Plataforma educativa para el análisis de datos sobre transición
+              energética justa y fuentes renovables a nivel mundial.
+            </p>
+
+            <div class="footer-social d-flex gap-3 mt-3">
+              <a href="#"
+                ><img src="assets/icons/twitter.svg" class="footer-icon"
+              /></a>
+              <a href="#"
+                ><img src="assets/icons/facebook.svg" class="footer-icon"
+              /></a>
+              <a href="#"
+                ><img src="assets/icons/linkedin.svg" class="footer-icon"
+              /></a>
+              <a href="#"
+                ><img src="assets/icons/github.svg" class="footer-icon"
+              /></a>
+            </div>
+          </div>
+
+          <!-- Columna 2 -->
+          <div class="col-md-2 mb-2">
+            <h5 class="footer-title">Navegación</h5>
+            <ul class="footer-links">
+              <li><a href="#">Información</a></li>
+              <li><a href="#">Datos Históricos</a></li>
+              <li><a href="#">Calculadora</a></li>
+              <li><a href="#">Dashboard</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 3 -->
+          <div class="col-md-3 mb-2">
+            <h5 class="footer-title">Recursos</h5>
+            <ul class="footer-links">
+              <li><a href="#">Dataset Global (Kaggle)</a></li>
+              <li><a href="#">Metodología de Cálculo</a></li>
+              <li><a href="#">Transición Energética Justa</a></li>
+              <li><a href="#">Reportes Técnicos</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 4 -->
+          <div class="col-md-3 mb-2">
+            <h5 class="footer-title">Contacto</h5>
+            <ul class="footer-links">
+              <li>Universidad Nacional de Colombia</li>
+              <li>+57 1 316 5000</li>
+              <li>energia.renovable@unal.edu.co</li>
+            </ul>
+          </div>
+        </div>
+
+        <hr class="footer-divider" />
+
+        <p class="footer-bottom text-center mt-3">
+          © 2025 Proyecto Final de Programación - Transición Energética Justa.
+          <br />
+          Este es un proyecto educativo sin fines de lucro.
+        </p>
+      </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

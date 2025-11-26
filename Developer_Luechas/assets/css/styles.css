@@ -2,6 +2,19 @@ html {
   font-size: 62.5%; /* 10px = 1rem */
 }
 
+/* Make box-sizing predictable so padding doesn't increase element width beyond container */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent small accidental horizontal overflow (fallback) - prefer fixing upstream rules */
+html,
+body {
+  overflow-x: hidden;
+}
+
 :root {
   /* Colores de la paleta */
   --header-dark-green: #0f642f;
@@ -19,6 +32,14 @@ html {
   /* Sombras */
   --soft-shadow: rgba(0, 0, 0, 0.08);
   --energia-color: var(--bioenergy-green);
+  /* Tamaño uniforme para viñetas / puntos en tarjetas y listas - facilita alineación */
+  --info-bullet-size: 0.8rem; /* ~12-13px */
+  /* Control centralizado del ancho máximo del card principal (fácil de ajustar) */
+  --solar-card-max-width: 120rem; /* ~1200px por defecto - aumenta el ancho sin tocar el contenido interno */
+  /* Header/footer/view spacing control — ajustar a tu layout si quieres eliminar scroll de página */
+  --app-header-height: 6.4rem; /* aproximado: ajusta si tu header ocupa más/menos */
+  --app-footer-height: 14.5rem; /* aproximado: ajusta si tu footer es más alto o más bajo */
+  --page-safe-gap: 3.2rem; /* espacio extra que se reserva para respirar */
 }
 
 /* Fondo general de la página */
@@ -32,15 +53,16 @@ body {
 /* NAVBAR con degradado (HEADER) */
 .mi-navbar {
   background: linear-gradient(90deg, #0f642f, #1ea54b);
-  padding: 1.6rem 0; /* antes 1rem (16px) */
-  font-size: 1.6rem; /* antes 1.4rem (14px) */
+  /* navbar aún más compacta */
+  padding: 0.6rem 0;
+  font-size: 1.5rem;
 }
 
 /* Marca (logo + texto) */
 .mi-navbar .navbar-brand {
   color: #fff;
   font-weight: 600;
-  font-size: 2.4rem; /* antes 2rem (20px) */
+  font-size: 2rem; /* un poco más pequeño para ahorrar espacio */
 }
 
 /* Nav logo inline SVG: inherit color (currentColor) and allow CSS control */
@@ -67,7 +89,8 @@ body {
 /* BOTONES de energía */
 
 .energia-btn {
-  padding: 10px 22px;
+  /* botones compactos: otro paso para reducir ancho total */
+  padding: 6px 10px;
   border-radius: 50px; /* -> pill */
   border: none;
   cursor: pointer;
@@ -77,7 +100,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.06);
 
   transition: all 0.25s ease;
-  margin: 0 8px 10px;
+  margin: 0 4px 8px;
 }
 
 .energia-btn:hover {
@@ -86,19 +109,19 @@ body {
 }
 
 .energia-btn .btn-icon {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   object-fit: contain;
-  margin-right: 8px;
+  margin-right: 4px;
   vertical-align: middle;
 }
 
 /* SVG inline dentro de botones */
 .btn-svg {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   vertical-align: middle;
-  margin-right: 8px;
+  margin-right: 4px;
   display: inline-block;
   /* Use the button-level variable --btn-icon-color when present, otherwise fall back to currentColor */
   fill: var(--btn-icon-color, currentColor);
@@ -133,15 +156,17 @@ body {
 
 /* Ensure inline SVG inside energia-icono keeps size constraints */
 #energia-icono {
-  width: 120px;
-  height: 120px;
+  padding: 8px;
+  border-radius: 12px;
+  width: 84px;
+  height: 84px;
 }
 
 /* Botón activo (cuando lo seleccionan) */
 .energia-btn.active {
   background: var(--energia-color);
   color: #fff;
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(234, 229, 229, 0.08);
   transform: scale(1.03);
   box-shadow: 0 8px 22px rgba(16, 181, 102, 0.18);
 }
@@ -163,27 +188,29 @@ body {
 }
 
 /* CARD principal del héroe */
+/* Reemplaza la regla actual de .solar-card por esto */
 .solar-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 3rem;
-  transition: 0.3s ease;
-  border: 2px solid #eee;
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 110rem; /* ancho límite en escritorio */
+  width: calc(100% - 34rem); /* deja espacio lateral en pantallas pequeñas */
+  margin: 1.6rem auto; /* centra y separa */
+  padding: 1.2rem;
+  border-radius: 2rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0.6rem 2rem rgba(0, 0, 0, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .solar-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.1);
 }
 
 /* ================================
    TÍTULO PRINCIPAL
 ================================ */
 .titulo-principal {
-  font-size: 2rem;
+  font-size: 1.85rem; /* ligero ajuste para mantener jerarquía sin ocupar tanto espacio */
   font-weight: 700;
-  margin-bottom: 1.8rem;
+  margin-bottom: 0.6rem; /* menos separación vertical en main */
   color: #1e1e1e;
 }
 
@@ -191,7 +218,7 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 0.6rem;
 }
 
 /* Imagen */
@@ -202,8 +229,8 @@ body {
 
 /* TITULO */
 .solar-card h2 {
-  font-size: 2.4rem;
-  margin-bottom: 1.2rem;
+  font-size: 2.2rem; /* Slightly smaller h2 inside main */
+  margin-bottom: 1rem;
 }
 
 /* Párrafo */
@@ -229,41 +256,59 @@ body {
 .hero-header {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 0.8rem;
 }
 
 .hero-icon {
-  width: 150px;
+  width: 92px;
   max-width: 100%;
-  border-radius: 16px;
-  padding: 10px;
+  border-radius: 14px;
+  padding: 6px;
 }
 
 /* Estilo del icono principal: cuadro con sombra y borde suave */
 #energia-icono {
   background: rgba(0, 0, 0, 0); /* imagen mantiene transparencia */
-  padding: 18px;
+  padding: 1rem;
   border-radius: 14px;
-  width: 120px;
-  height: 120px;
+  width: 10rem;
+  height: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-clip: padding-box;
   box-shadow: 0 6px 20px rgba(122, 196, 75, 0.06);
   border: 1px solid rgba(122, 196, 75, 0.12);
 }
 
 /* Punto indicador antes del título en las tarjetas */
+.info-card {
+  position: relative; /* facilita posicionamiento absoluto dentro de la card */
+  /* añadir borde blanco sutil y sombra interior para destacar la tarjeta */
+  border: 0.2rem solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.382);
+}
+
+.info-card .info-title {
+  /* grid con dos columnas: viñeta + contenido.
+     Esto asegura que la viñeta del título y las viñetas de las listas compartan
+     la misma columna y estén perfectamente alineadas horizontalmente. */
+  display: grid;
+  grid-template-columns: var(--info-bullet-size) 1fr;
+  column-gap: 0.6rem;
+  align-items: center;
+  padding-left: 1; /* la grid crea la columna de la viñeta */
+}
+
 .info-card .info-title::before {
   content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
+  display: block;
+  width: var(--info-bullet-size);
+  height: var(--info-bullet-size);
   background: var(--energia-color);
   border-radius: 50%;
-  margin-right: 8px;
-  vertical-align: middle;
+  grid-column: 1;
+  justify-self: start;
 }
 
 /* Imagen fija a la izquierda */
@@ -282,21 +327,22 @@ body {
 ================================ */
 .card-title {
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* pequeño ajuste para compactar */
   color: #111;
+  margin-bottom: 0.35rem;
 }
 
 .card-subtitle {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--energia-color);
+  font-size: 0.98rem; /* subtítulo más compacto */
   font-weight: 700;
+  color: var(--energia-color);
+  margin-bottom: 0.35rem;
 }
 
 .estrellas span {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--energia-color);
-  margin-right: 4px;
+  margin-right: 3px;
 }
 
 /* Estrellas: dos capas superpuestas (base gris + relleno de color) */
@@ -304,7 +350,7 @@ body {
   position: relative;
   display: inline-block;
   line-height: 1;
-  font-size: 2.2rem; /* controla el tamaño de las estrellas */
+  font-size: 2rem; /* controla el tamaño de las estrellas */
   font-family: inherit;
   white-space: nowrap;
 }
@@ -337,9 +383,9 @@ body {
 
 /* Descripción abajo, full width */
 .card-text {
-  font-size: 1.4rem;
-  line-height: 1.6;
-  margin-top: 1.5rem;
+  font-size: 1.28rem; /* ligero ajuste hacia lectura compacta */
+  line-height: 1.5;
+  margin-top: 0.5rem; /* reduce separación vertical en el hero */
 }
 
 /* Responsive */
@@ -350,7 +396,7 @@ body {
   }
 
   .hero-img {
-    width: 200px;
+    width: 120px; /* mobile: no agrandar la imagen, reduce ancho para evitar overflow */
   }
 
   .card-text {
@@ -359,29 +405,40 @@ body {
 }
 
 /* Tarjetas inferiores */
-.info-card {
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-  transition: 0.25s ease;
-  padding: 1.8rem;
-}
-
-.info-title {
-  font-weight: 700;
-  color: #222;
-}
-
 .info-list {
-  padding-left: 18px;
+  list-style: none;
+  margin: 0;
+  padding-left: 0; /* asegure que la UL no agregue indent extra */
 }
 
 .info-list li {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   color: #444;
-  font-size: 1.45rem;
-  list-style-type: disc;
+  font-size: 1.15rem; /* compacto */
+  display: grid;
+  grid-template-columns: var(--info-bullet-size) 1fr;
+  column-gap: 0.6rem;
+  align-items: center; /* centra verticalmente la viñeta con la línea de texto */
+  padding-left: 0; /* la columna del bullet ya está reservada por la grid */
+}
+
+/* Viñeta de items: neutral y colocada en la primera columna; el texto queda a la derecha */
+.info-list li::before {
+  content: "";
+  display: block;
+  grid-column: 1;
+  width: var(--info-bullet-size);
+  height: var(--info-bullet-size);
+  border-radius: 50%;
+  background: #444;
+  justify-self: start;
+}
+
+/* Cuando la lista está dentro de un .info-card activo o el color se actualiza,
+   var(--energia-color) controla el color de la viñeta. El siguiente rule hace
+   que las viñetas sean ligeramente más visibles en fondos claros. */
+.info-card .info-list li::before {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
 }
 
 .wide-card {
@@ -389,15 +446,12 @@ body {
   border: 1px solid rgba(122, 196, 75, 0.18);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: 0.25s ease;
-}
-
-.wide-card:hover {
-  transform: translateY(-3px);
+  padding: 0.8rem;
 }
 
 .wide-info h4 {
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .wide-info p {
@@ -420,8 +474,8 @@ body {
 /* Tablet: menor padding y escala intermedia */
 @media (max-width: 992px) {
   .solar-card {
-    padding: 2rem;
-    margin: 0 1.2rem;
+    padding: 1.4rem;
+    margin: 0 0.8rem; /* reduce margen lateral en tablet para evitar overflow */
   }
 
   .card-title {
@@ -433,17 +487,17 @@ body {
   }
 
   .hero-icon {
-    width: 120px;
+    width: 100px;
   }
 
   #energia-icono {
-    width: 100px;
-    height: 100px;
-    padding: 14px;
+    width: 76px;
+    height: 76px;
+    padding: 8px;
   }
 
   .info-card {
-    padding: 1.4rem;
+    padding: 1rem; /* aún más compacto en tablet */
   }
 }
 
@@ -451,7 +505,7 @@ body {
 @media (max-width: 576px) {
   /* Card */
   .solar-card {
-    padding: 1.6rem;
+    padding: 1.2rem;
     border-radius: 14px;
   }
 
@@ -469,8 +523,8 @@ body {
 
   /* Botones: menor tamaño y ocultar icono para ahorrar espacio */
   .energia-btn {
-    padding: 8px 14px;
-    margin: 6px 6px;
+    padding: 6px 10px; /* botones aún más compactos en móvil */
+    margin: 5px 6px;
     font-size: 1.3rem;
     border-radius: 999px;
   }
@@ -480,19 +534,19 @@ body {
   }
 
   #botones-contenedor {
-    gap: 8px;
+    gap: 6px;
   }
 
   /* Icono principal más pequeño */
   #energia-icono {
-    width: 88px;
-    height: 88px;
-    padding: 10px;
+    width: 68px;
+    height: 68px;
+    padding: 6px;
   }
 
   /* Info cards: una columna y menos padding */
   .info-card {
-    padding: 1.2rem;
+    padding: 0.9rem;
   }
 
   .info-list li {
@@ -500,7 +554,7 @@ body {
   }
 
   .wide-card {
-    padding: 1rem;
+    padding: 0.9rem;
     flex-direction: column;
     gap: 12px;
   }
@@ -508,11 +562,54 @@ body {
   .wide-info h4 {
     font-size: 1.4rem;
   }
+}
 
-  /* Navbar brand más pequeña en móvil */
-  .mi-navbar .navbar-brand {
-    font-size: 1.8rem;
+/* -------------------------------
+   Additional responsive refinements
+   - Tablet (<=1200px), small-desktop (<=992px), mobile (<=576px)
+------------------------------- */
+@media (max-width: 1200px) {
+  .solar-card {
+    width: calc(100% - 4rem);
+    padding: 1.2rem;
+    border-radius: 1.6rem;
   }
+
+  .titulo-principal { font-size: 1.7rem; }
+  .card-title { font-size: 1.9rem; }
+  .card-text { font-size: 1.48rem; }
+}
+
+@media (max-width: 992px) {
+  .solar-card { margin: 1rem; width: auto; max-width: calc(100% - 2rem); padding: 1rem; }
+  .hero-header { gap: 0.8rem; }
+  .hero-icon { width: 88px; }
+  .card-title { font-size: 1.7rem; }
+  .info-card { padding: 0.9rem; }
+  .wide-card { padding: 0.9rem; flex-direction: column; align-items: flex-start; }
+  .wide-card .wide-info { text-align: left; }
+}
+
+@media (max-width: 768px) {
+  .titulo-principal { font-size: 1.6rem; }
+  .card-title { font-size: 1.5rem; }
+  .card-text { font-size: 1.3rem; }
+  .hero-img { display: block; margin: 0 auto; }
+  .info-list li { font-size: 1.15rem; }
+  .wide-card { text-align: center; align-items: center; }
+}
+
+@media (max-width: 576px) {
+  .solar-card { padding: 0.9rem; margin: 0.8rem; border-radius: 12px; }
+  .titulo-principal { font-size: 1.4rem; }
+  .card-title { font-size: 1.2rem; }
+  .card-text { font-size: 1.05rem; }
+  .hero-header { flex-direction: column; gap: 0.6rem; }
+  .col-md-4 { padding-left: 0.4rem; padding-right: 0.4rem; }
+  .info-list li { font-size: 1.05rem; }
+  .wide-card { align-items: center; text-align: center; width: 100%; }
+  .energia-btn { font-size: 1.2rem; padding: 6px 8px; }
+  .btn-svg, .btn-icon { width: 14px; height: 14px; }
 }
 
 /* Pantallas muy grandes: aumentar espacios y letra */
@@ -531,5 +628,127 @@ body {
 
   .info-list li {
     font-size: 1.6rem;
+  }
+}
+
+/* Reduce el espacio antes/dentro del footer para evitar huecos verticales grandes */
+.footer-section {
+  /* Restauración del estilo visual original del footer
+     - Mantiene el menor espacio vertical pero recupera colores y legibilidad */
+  background: #0d1421; /* fondo oscuro */
+  color: #dfe6f0; /* color general de texto */
+  padding-top: 0.6rem;
+}
+
+/* --------------------------------------------------
+   Restaurar borde blanco visible en tarjetas
+   - Esta regla va al final para garantizar override
+   - Añadimos un 'inset' sutil para dar sensación de relieve
+-------------------------------------------------- */
+.solar-card,
+.info-card,
+.wide-card {
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.62);
+  position: relative;
+  background-clip: padding-box;
+}
+
+
+
+
+
+.footer-brand {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.footer-text {
+  font-size: 1.29rem;
+  opacity: 0.85;
+  color: #dfe6f0;
+}
+
+.footer-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.footer-links {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+  font-size: 1.29rem;
+}
+
+.footer-links a {
+  color: #b7c4d4;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--energia-color);
+}
+
+.footer-icon {
+  width: 2.4rem;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+.footer-icon:hover {
+  opacity: 1;
+}
+
+.footer-divider {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.footer-bottom {
+  font-size: 1.2rem;
+  opacity: 0.75;
+}
+
+/* Desktop: cap the main card height to the viewport (so the page itself doesn't need to scroll)
+   and allow the card to scroll internally when content is larger than available height.
+   The variables above control header/footer sizing — tweak those to match your layout. */
+@media (min-width: 992px) {
+  .solar-card {
+    max-height: calc(
+      100vh - var(--app-header-height) - var(--app-footer-height) -
+        var(--page-safe-gap)
+    );
+    overflow-y: auto;
+    padding-right: 1rem; /* avoid content behind thin scrollbar */
+  }
+
+  /* Hide the visible scrollbar but keep internal scrolling usable */
+  .solar-card {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .solar-card::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  .solar-card::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
+@media (max-width: 991px) {
+  /* Small screens keep the default flow — page scroll is normal there */
+  .solar-card {
+    max-height: none;
+    overflow: visible;
+    padding-right: 1.2rem;
   }
 }
