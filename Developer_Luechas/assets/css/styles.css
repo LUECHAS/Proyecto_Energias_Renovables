@@ -12,7 +12,16 @@ html {
 /* Prevent small accidental horizontal overflow (fallback) - prefer fixing upstream rules */
 html,
 body {
-  overflow-x: hidden;
+  height: 100vh; /* Altura completa de la ventana */
+  overflow: hidden; /* ¡IMPORTANTE! Bloquea scroll global */
+  position: relative;
+}
+
+#site-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Contenedor principal sin scroll */
 }
 
 :root {
@@ -35,11 +44,7 @@ body {
   /* Tamaño uniforme para viñetas / puntos en tarjetas y listas - facilita alineación */
   --info-bullet-size: 0.8rem; /* ~12-13px */
   /* Control centralizado del ancho máximo del card principal (fácil de ajustar) */
-  --solar-card-max-width: 120rem; /* ~1200px por defecto - aumenta el ancho sin tocar el contenido interno */
-  /* Header/footer/view spacing control — ajustar a tu layout si quieres eliminar scroll de página */
-  --app-header-height: 6.4rem; /* aproximado: ajusta si tu header ocupa más/menos */
-  --app-footer-height: 14.5rem; /* aproximado: ajusta si tu footer es más alto o más bajo */
-  --page-safe-gap: 3.2rem; /* espacio extra que se reserva para respirar */
+  --solar-card-max-width: 120rem; /* ~1200px por defecto - aumenta el ancho sin tocar el contenido interno */ 
 }
 
 /* Fondo general de la página */
@@ -84,6 +89,18 @@ body {
 /* Hover */
 .mi-navbar .nav-link:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+main {
+  flex: 1;
+  overflow-y: auto; /* Solo el contenido puede scrollear */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Ocultar scrollbar visual (pero mantener funcionalidad) */
+main::-webkit-scrollbar {
+  display: none;
 }
 
 /* BOTONES de energía */
@@ -564,10 +581,8 @@ body {
   }
 }
 
-/* -------------------------------
-   Additional responsive refinements
-   - Tablet (<=1200px), small-desktop (<=992px), mobile (<=576px)
-------------------------------- */
+
+/* Large desktop: ajustes para pantallas grandes */
 @media (max-width: 1200px) {
   .solar-card {
     width: calc(100% - 4rem);
@@ -579,7 +594,7 @@ body {
   .card-title { font-size: 1.9rem; }
   .card-text { font-size: 1.48rem; }
 }
-
+/* Small desktop: ajustes para pantallas más pequeñas */
 @media (max-width: 992px) {
   .solar-card { margin: 1rem; width: auto; max-width: calc(100% - 2rem); padding: 1rem; }
   .hero-header { gap: 0.8rem; }
@@ -589,7 +604,7 @@ body {
   .wide-card { padding: 0.9rem; flex-direction: column; align-items: flex-start; }
   .wide-card .wide-info { text-align: left; }
 }
-
+/* Tablet: ajustes intermedios */
 @media (max-width: 768px) {
   .titulo-principal { font-size: 1.6rem; }
   .card-title { font-size: 1.5rem; }
@@ -598,7 +613,7 @@ body {
   .info-list li { font-size: 1.15rem; }
   .wide-card { text-align: center; align-items: center; }
 }
-
+/* Móvil: ajustes finales para mejor legibilidad y espacio */
 @media (max-width: 576px) {
   .solar-card { padding: 0.9rem; margin: 0.8rem; border-radius: 12px; }
   .titulo-principal { font-size: 1.4rem; }
@@ -631,20 +646,15 @@ body {
   }
 }
 
-/* Reduce el espacio antes/dentro del footer para evitar huecos verticales grandes */
+/* ================================
+   FOOTER STYLES */
 .footer-section {
-  /* Restauración del estilo visual original del footer
-     - Mantiene el menor espacio vertical pero recupera colores y legibilidad */
   background: #0d1421; /* fondo oscuro */
   color: #dfe6f0; /* color general de texto */
   padding-top: 0.6rem;
 }
 
-/* --------------------------------------------------
-   Restaurar borde blanco visible en tarjetas
-   - Esta regla va al final para garantizar override
-   - Añadimos un 'inset' sutil para dar sensación de relieve
--------------------------------------------------- */
+/* Estilo común para las tarjetas del footer */
 .solar-card,
 .info-card,
 .wide-card {
@@ -687,29 +697,32 @@ body {
   margin-bottom: 0.6rem;
   font-size: 1.29rem;
 }
-
+/* Links del footer */
 .footer-links a {
   color: #b7c4d4;
   text-decoration: none;
   transition: color 0.15s ease;
 }
-
+/* Links del footer - hover */
 .footer-links a:hover {
-  color: var(--energia-color);
+  color: var(--medium-green);
+  text-decoration: none;
 }
-
+/* Íconos sociales en el footer */
 .footer-icon {
-  width: 2.4rem;
+  width: 4rem; 
+  height: auto; 
   opacity: 0.85;
-  transition: opacity 0.15s ease;
+  transition: all 0.2s ease;
+  display: inline-block; 
+  fill: currentColor; 
 }
+/* Íconos sociales en el footer - hover */
 .footer-icon:hover {
   opacity: 1;
+  transform: scale(1.15); /* Efecto de zoom suave */
 }
 
-.footer-divider {
-  border-color: rgba(255, 255, 255, 0.08);
-}
 
 .footer-bottom {
   font-size: 1.2rem;
@@ -719,36 +732,45 @@ body {
 /* Desktop: cap the main card height to the viewport (so the page itself doesn't need to scroll)
    and allow the card to scroll internally when content is larger than available height.
    The variables above control header/footer sizing — tweak those to match your layout. */
+/* Ajuste fino para escritorio */
 @media (min-width: 992px) {
   .solar-card {
-    max-height: calc(
-      100vh - var(--app-header-height) - var(--app-footer-height) -
-        var(--page-safe-gap)
-    );
-    overflow-y: auto;
-    padding-right: 1rem; /* avoid content behind thin scrollbar */
+    max-height: none; /* ¡Clave! Elimina altura máxima */
+    overflow: visible;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
-
-  /* Hide the visible scrollbar but keep internal scrolling usable */
-  .solar-card {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  
+  /* Header y footer fijos */
+  header {
+    flex-shrink: 0;
   }
-
-  .solar-card::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-  .solar-card::-webkit-scrollbar-thumb {
-    background: transparent;
+  
+  footer {
+    flex-shrink: 0;
   }
 }
 
+/* Móvil: scroll natural */
 @media (max-width: 991px) {
-  /* Small screens keep the default flow — page scroll is normal there */
+  html, body {
+    height: auto;
+    overflow: auto;
+  }
+  
+  #site-root {
+    height: auto;
+    min-height: 100vh;
+    display: block;
+  }
+  
+  main {
+    overflow: visible;
+  }
+  
   .solar-card {
     max-height: none;
     overflow: visible;
-    padding-right: 1.2rem;
+    margin: 0.8rem;
   }
 }

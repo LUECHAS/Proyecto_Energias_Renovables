@@ -338,3 +338,36 @@ window.addEventListener("load", updateSolarCardOverflow);
 window.addEventListener("resize", () =>
   setTimeout(updateSolarCardOverflow, 80)
 );
+
+// ===================================================================
+// ¡CORRECCIÓN CRÍTICA! Evitar scroll con barra espaciadora
+// Solución 100% efectiva para todos los navegadores
+// ===================================================================
+document.addEventListener('keydown', function(e) {
+  // Solo actúa para la barra espaciadora
+  if (e.key !== ' ') return;
+  
+  // Elementos donde SÍ queremos permitir la barra espaciadora
+  const interactiveElements = [
+    'INPUT', 
+    'TEXTAREA', 
+    'SELECT', 
+    'BUTTON', 
+    'A', 
+    '[contenteditable="true"]'
+  ];
+  
+  // Si el elemento actual es interactivo, permitimos el comportamiento normal
+  if (interactiveElements.some(selector => e.target.matches(selector))) {
+    return;
+  }
+  
+  // ¡BLOQUEAMOS EL SCROLL GLOBAL!
+  e.preventDefault();
+  
+  // Opcional: Simular scroll dentro de .solar-card si está presente
+  const solarCard = document.querySelector('.solar-card');
+  if (solarCard) {
+    solarCard.scrollTop += window.innerHeight * 0.8;
+  }
+}, true); // ¡Importante: usar capture phase!
