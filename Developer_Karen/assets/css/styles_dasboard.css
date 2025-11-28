@@ -36,10 +36,19 @@ body {
         background: #fff;
         padding: 2rem;
         border-radius: 1.2rem;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 2px 12px  #fff;
       }
 
       table td,
       table th {
         font-size: 1.3rem;
+      }
+
+      .small-chart {
+        width: 70% !important;
+        height: 70% !important;
+      }
+
+      .nav-link active fw-bold {
+        color: #fff
       }
