@@ -86,6 +86,7 @@ body {
 .mi-navbar .nav-link:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+/* =================================================== */
 
 /* Contenido header */
 .datos-header {
@@ -131,7 +132,6 @@ body {
 
 .btn-download:hover {
   background: var(--active-button-green);
-  transform: translateY(-2px);
 }
 
 .icono-descarga {
@@ -141,19 +141,27 @@ body {
 
 /* ===== BUSCADOR ===== */
 
-#filtro-pais,
-#filtro-anio {
-  font-size: 1.45rem;
+
+/* Tamaño fijo para los selects */
+.bloque-filtro {
+  width: 250px; /* Ajusta si necesitas */
 }
 
-#btn-buscar {
-  font-size: 1.5rem;
-  padding: 1rem;
+/* Botones alineados a la altura de los selects */
+.boton-filtro {
+  height: 25px !important;
   display: flex;
-  justify-content: center;
+  width: 100px;
   align-items: center;
-  gap: .6rem;
+  gap: 5px;
+  white-space: nowrap;
 }
+
+
+
+
+
+
 
 /* ===== TABLA ===== */
 
